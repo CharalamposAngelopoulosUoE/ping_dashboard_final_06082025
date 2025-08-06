@@ -1,19 +1,32 @@
 # Ping Dashboard Docker (Final Version)
 
+A Dockerized dashboard to monitor IP addresses (online/offline) with real-time updates and automatic rescans.
+
+---
+
 ## Features
-- Real-time progress updates with pie chart
-- Start / Stop buttons
-- 15-min Autoscan toggle
-- Shows total IPs and file path of current Excel data
+
+- Real-time progress updates during scan
+- Pie chart with **percentages** and **counts** (Online/Offline)
+- **Start / Stop** manual scans
+- **Autoscan toggle** (every 15 minutes)
 - Offline-first sorting after completion
-- Volume mount friendly (no rebuild for IP updates)
+- Shows total IPs and source file path (`data/IP_List.xlsx`)
+- **Volume mount support** — edit Excel file without rebuilding image
 
 ---
 
 ## Quick Start
 
-### 1. Run the helper script
-Double-click `run_dashboard.ps1` (or run it in PowerShell):
+
 
 ```powershell
-.\run_dashboard.ps1
+ 1. Clone the Repository
+    git clone https://github.com/CharalamposAngelopoulosUoE/ping_dashboard_final_06082025.git
+    cd ping_dashboard_final_06082025
+
+2. Build Docker Image
+    docker build -t ping_dashboard .
+    
+3. Run Container (with volume mount)   
+    docker run -p 5000:5000 -v ${PWD}/data/IP_List.xlsx:/app/data/IP_List.xlsx ping_dashboard
